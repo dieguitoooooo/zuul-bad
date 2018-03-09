@@ -44,11 +44,11 @@ public class Game
         nilo = new Room("estas en el Nilo");
 
         // initialise room exits
-        danubio.setExits(null, null, nilo, null, null);
-        amazonas.setExits(null, misisipi, po, nilo,misisipi);
-        po.setExits(amazonas, null, null, nilo,null);
-        misisipi.setExits(amazonas, null, null, null,null);
-        nilo.setExits(danubio, amazonas, po, null,null);
+        danubio.setExits(null, null, nilo, null, null,null);
+        amazonas.setExits(null, misisipi, po, nilo,misisipi,danubio);
+        po.setExits(amazonas, null, null, nilo,null,null);
+        misisipi.setExits(amazonas, null, null, null,null,null);
+        nilo.setExits(danubio, amazonas, po, null,null,null);
 
         currentRoom = amazonas;  // start game outside
     }
