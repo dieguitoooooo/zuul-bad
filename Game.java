@@ -12,7 +12,7 @@
  *  executes the commands that the parser returns.
  * 
  * @author  Michael Kölling and David J. Barnes
- * @version 2011.07.31
+ * @version 2018.03.09
  */
 
 public class Game 
@@ -49,8 +49,6 @@ public class Game
         po.setExits(amazonas, null, null, nilo,null);
         misisipi.setExits(amazonas, null, null, null,null);
         nilo.setExits(danubio, amazonas, po, null,null);
-        
-        
 
         currentRoom = amazonas;  // start game outside
     }
@@ -146,19 +144,7 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        Room nextRoom = null;
-        if(direction.equals("north")) {
-            nextRoom = currentRoom.northExit;
-        }
-        if(direction.equals("east")) {
-            nextRoom = currentRoom.eastExit;
-        }
-        if(direction.equals("south")) {
-            nextRoom = currentRoom.southExit;
-        }
-        if(direction.equals("west")) {
-            nextRoom = currentRoom.westExit;
-        }
+        Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
@@ -192,19 +178,7 @@ public class Game
     private void printLocationInfo()
     {
         System.out.println(currentRoom.getDescription());
-        System.out.print("Exits: ");
-        if(currentRoom.northExit != null) {
-            System.out.print("north ");
-        }
-        if(currentRoom.eastExit != null) {
-            System.out.print("east ");
-        }
-        if(currentRoom.southExit != null) {
-            System.out.print("south ");
-        }
-        if(currentRoom.westExit != null) {
-            System.out.print("west ");
-        }
+        System.out.println(currentRoom.getExitString());
         System.out.println();
     }
 }
