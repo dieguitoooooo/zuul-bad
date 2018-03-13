@@ -1,5 +1,4 @@
 
-
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -46,15 +45,24 @@ public class Game
         nilo = new Room("estas en el Nilo");
 
         // initialise room exits
-        danubio.setExits(null, null, nilo, null, amazonas,null);
-        amazonas.setExits(null, null, po, null,misisipi,null);
-        po.setExits(amazonas, null, null, nilo,null,null);
-        misisipi.setExits(null, null, null, null,null,amazonas);
-        nilo.setExits(danubio, null, po, null,null,null);
+        danubio.setExits("south", nilo);
+        danubio.setExits("southeast", amazonas);
+
+        amazonas.setExits("northwest", danubio);
+        amazonas.setExits("south", po);
+        amazonas.setExits("southeast", misisipi);
+
+        nilo.setExits("north", danubio);
+        nilo.setExits("south", po);
+
+        po.setExits("north", amazonas);
+        po.setExits("west", nilo);
+        
+        misisipi.setExits("northwest", danubio);
 
         currentRoom = amazonas;  // start game outside
     }
-
+    
     /**
      *  Main play routine.  Loops until end of play.
      */
