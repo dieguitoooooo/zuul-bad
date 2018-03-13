@@ -12,8 +12,8 @@ import java.util.Set;
  * east, south, west.  For each direction, the room stores a reference
  * to the neighboring room, or null if there is no exit in that direction.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2011.07.31
+ * @author  Diego Antonio
+ * @version 2018.03.13
  */
 public class Room 
 {
@@ -32,6 +32,11 @@ public class Room
         this.salida = new HashMap<>();
     }
 
+    /**
+     * Define an exit from this room.
+     * @param direction The direction of the exit.
+     * @param neighbor The room in the given direction.
+     */
     public void setExits(String direccion, Room siguienteHabitacion)
     {
         salida.put(direccion, siguienteHabitacion);
@@ -72,5 +77,16 @@ public class Room
         }
 
         return descripcionSalida;
+    }
+
+    /**
+     * Return a long description of this room, of the form:
+     *     You are in the 'name of room'
+     *     Exits: north west southwest
+     * @return A description of the room, including exits.
+     */
+    public String getLongDescription()
+    {
+        return "Estas en " + description + ".\n" + getExitString();
     }
 }

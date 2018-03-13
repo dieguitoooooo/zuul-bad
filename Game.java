@@ -12,8 +12,8 @@
  *  rooms, creates the parser and starts the game.  It also evaluates and
  *  executes the commands that the parser returns.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2018.03.09
+ * @author  Diego Antonio
+ * @version 2018.03.13
  */
 
 public class Game 
@@ -187,8 +187,7 @@ public class Game
      */
     private void printLocationInfo()
     {
-        System.out.println(currentRoom.getDescription());
-        System.out.println(currentRoom.getExitString());
+        System.out.println(currentRoom.getLongDescription());
         System.out.println();
     }
 }
