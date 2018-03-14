@@ -57,12 +57,12 @@ public class Game
 
         po.setExits("north", amazonas);
         po.setExits("west", nilo);
-        
+
         misisipi.setExits("northwest", danubio);
 
         currentRoom = amazonas;  // start game outside
     }
-    
+
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -118,6 +118,9 @@ public class Game
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
+        }
+        else if (commandWord.equals("look")) {
+            look();
         }
 
         return wantToQuit;
@@ -189,5 +192,10 @@ public class Game
     {
         System.out.println(currentRoom.getLongDescription());
         System.out.println();
+    }
+
+    private void look() 
+    {
+        System.out.println(currentRoom.getLongDescription());
     }
 }
