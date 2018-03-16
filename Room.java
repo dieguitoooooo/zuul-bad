@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Set;
+import java.util.ArrayList;
 
 /**
  * Class Room - a room in an adventure game.
@@ -19,7 +20,7 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> salida;
-    public Item item;
+    public ArrayList<Item> item;
 
     /**
      * Create a room described "description". Initially, it has
@@ -27,11 +28,11 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description, Item item) 
+    public Room(String description) 
     {
         this.description = description;
         this.salida = new HashMap<>();
-        this.item = item;
+        item = new ArrayList<>();
     }
 
     /**
@@ -81,6 +82,16 @@ public class Room
         return descripcionSalida;
     }
 
+    public String getDescricionItem()
+    {
+        String descripcionItem = "";
+        for(Item items : item){
+            descripcionItem += items.getDescripcion()+ " ";
+        }
+        
+        return descripcionItem;
+    }
+
     /**
      * Return a long description of this room, of the form:
      *     You are in the 'name of room'
@@ -89,12 +100,15 @@ public class Room
      */
     public String getLongDescription()
     {
-        String devolver = "Estas en " + description + ".\n" + getExitString() + ".\n";
-        
-        if (item != null)
-        {
-            devolver += "Te has encontrado con este pez " + item.getDescripcion() + "El pez pesa" + item.getPeso();
-        }
-        return devolver;
+        return "Estas en " + description + ".\nSalidas" + getExitString() + ".\nObjetos "+ getDescricionItem();
+    }
+
+    /**
+     * Este método permite colocar un elemento en la sala, esta puede albergar
+     * cualquier número de elementos.
+     */
+    public void addItem(String descripcion, int peso)
+    {
+        item.add(new Item(descripcion, peso));
     }
 }

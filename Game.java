@@ -38,11 +38,22 @@ public class Game
         Room danubio, amazonas, po, misisipi, nilo;
 
         // create the rooms
-        danubio = new Room("estas en el Danubio", new Item("Aqui hay un tiburon", 300));
-        amazonas = new Room("estas en el Amazonas", new Item(null,0));
-        po = new Room("estas en el PO", new Item(null,0));
-        misisipi = new Room("estas en el Misisipi", new Item("Aqui hay una anaconda cuidado!", 50));
-        nilo = new Room("estas en el Nilo", new Item("Aqui hay una ballena jorobada", 800));
+        danubio = new Room("estas en el Danubio");
+        danubio.addItem("Cocodrilo", 200);
+        danubio.addItem("Anaconda", 100);
+        
+        amazonas = new Room("estas en el Amazonas");
+        
+        
+        po = new Room("estas en el PO");
+        po.addItem("Salamandra", 20);
+        po.addItem("Pez Gato", 60);
+        po.addItem("Anaconda", 90);
+        
+        misisipi = new Room("estas en el Misisipi");
+        
+        nilo = new Room("estas en el Nilo");
+        nilo.addItem("Cocodrilo del nilo", 200);
 
         // initialise room exits
         danubio.setExits("south", nilo);
