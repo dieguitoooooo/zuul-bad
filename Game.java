@@ -1,3 +1,4 @@
+import java.util.Stack;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -20,8 +21,8 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-    private Room anteriorRoom;
-    
+    private Stack<Room> anteriorRoom;
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -29,6 +30,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        anteriorRoom = new Stack<>();
     }
 
     /**
@@ -42,17 +44,16 @@ public class Game
         danubio = new Room("estas en el Danubio");
         danubio.addItem("Cocodrilo", 200);
         danubio.addItem("Anaconda", 100);
-        
+
         amazonas = new Room("estas en el Amazonas");
-        
-        
+
         po = new Room("estas en el PO");
         po.addItem("Salamandra", 20);
         po.addItem("Pez Gato", 60);
         po.addItem("Anaconda", 90);
-        
+
         misisipi = new Room("estas en el Misisipi");
-        
+
         nilo = new Room("estas en el Nilo");
         nilo.addItem("Cocodrilo del nilo", 200);
 
@@ -73,7 +74,6 @@ public class Game
         misisipi.setExits("northwest", danubio);
 
         currentRoom = amazonas;  // start game outside
-        anteriorRoom = amazonas;
     }
 
     /**
@@ -182,7 +182,7 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
-            anteriorRoom = currentRoom;
+            anteriorRoom.push(currentRoom);
             currentRoom = nextRoom;
             printLocationInfo();
         }
@@ -223,13 +223,13 @@ public class Game
     }
 
     /**
-     * 
+     * Este comando lo que hace es imprimirnos un mensaje.
      */
     private void eat()
     {
         System.out.println("You have eaten now and you are not hungry any more");
     }
-    
+
     /**
      * Este metodo nos hace volver a la habitacion anterior
      * @param recibe un commando por parametro
@@ -242,12 +242,14 @@ public class Game
             System.out.println("Quit what?");
         }
         else{
-            if(currentRoom == anteriorRoom){
+            if(anteriorRoom.isEmpty()){
                 System.out.println("Lo siento tienes que moverte para volver atras");
             }
-            currentRoom = anteriorRoom;
-            printLocationInfo();
-            System.out.println();
+
+            else{currentRoom = anteriorRoom.pop();
+                printLocationInfo();
+                System.out.println();
+            }          
         }
     }
 }
