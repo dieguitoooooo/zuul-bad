@@ -20,7 +20,8 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-
+    private Room anteriorRoom;
+    
     /**
      * Create the game and initialise its internal map.
      */
@@ -72,6 +73,7 @@ public class Game
         misisipi.setExits("northwest", danubio);
 
         currentRoom = amazonas;  // start game outside
+        anteriorRoom = amazonas;
     }
 
     /**
@@ -136,6 +138,9 @@ public class Game
         else if (commandWord.equals("eat")) {
             eat();
         }
+        else if(commandWord.equals("back")){
+            backRoom(command);
+        }
 
         return wantToQuit;
     }
@@ -177,6 +182,7 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
+            anteriorRoom = currentRoom;
             currentRoom = nextRoom;
             printLocationInfo();
         }
@@ -208,13 +214,40 @@ public class Game
         System.out.println();
     }
 
+    /**
+     * Muestra la descripcion en la habitacion en la que estamos.
+     */
     private void look() 
     {
         System.out.println(currentRoom.getLongDescription());
     }
 
+    /**
+     * 
+     */
     private void eat()
     {
         System.out.println("You have eaten now and you are not hungry any more");
+    }
+    
+    /**
+     * Este metodo nos hace volver a la habitacion anterior
+     * @param recibe un commando por parametro
+     * @return no devuelve nada imprime la habitacion anterior
+     * 
+     */
+    private void backRoom(Command command)
+    {
+        if(command.hasSecondWord()){
+            System.out.println("Quit what?");
+        }
+        else{
+            if(currentRoom == anteriorRoom){
+                System.out.println("Lo siento tienes que moverte para volver atras");
+            }
+            currentRoom = anteriorRoom;
+            printLocationInfo();
+            System.out.println();
+        }
     }
 }
