@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Player
+comment0.text=\r\n\ \r\n\r\n\ @author\ Diego\ Antonio\ Almonte\r\n\ @version\ 01.\ \ 2018/03/23\r\n
+comment1.params=room
+comment1.target=Player(Room)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Player\r\n
+comment2.params=command
+comment2.target=void\ goRoom(Command)
+comment2.text=\ \r\n\ Try\ to\ go\ in\ one\ direction.\ If\ there\ is\ an\ exit,\ enter\r\n\ the\ new\ room,\ otherwise\ print\ an\ error\ message.\r\n
+comment3.params=
+comment3.target=void\ printLocationInfo()
+comment3.text=\r\n\ Imprime\ la\ informacion\ de\ la\ localizacion\ del\ usuario\r\n\ \r\n
+comment4.params=
+comment4.target=void\ look()
+comment4.text=\r\n\ Muestra\ la\ descripcion\ en\ la\ habitacion\ en\ la\ que\ estamos.\r\n
+comment5.params=
+comment5.target=void\ eat()
+comment5.text=\r\n\ Este\ comando\ lo\ que\ hace\ es\ imprimirnos\ un\ mensaje.\r\n
+comment6.params=command
+comment6.target=void\ backRoom(Command)
+comment6.text=\r\n\ Este\ metodo\ nos\ hace\ volver\ a\ la\ habitacion\ anterior\r\n\ @param\ recibe\ un\ commando\ por\ parametro\r\n\ @return\ no\ devuelve\ nada\ imprime\ la\ habitacion\ anterior\r\n\ \r\n
+numComments=7
