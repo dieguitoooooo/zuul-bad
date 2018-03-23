@@ -20,23 +20,21 @@ import java.util.Stack;
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
-    private Stack<Room> anteriorRoom;
+    private Player player;
 
     /**
      * Create the game and initialise its internal map.
      */
     public Game() 
     {
-        createRooms();
         parser = new Parser();
-        anteriorRoom = new Stack<>();
+        player = new Player(createRooms());
     }
 
     /**
      * Create all the rooms and link their exits together.
      */
-    private void createRooms()
+    private Room createRooms()
     {
         Room danubio, amazonas, po, misisipi, nilo;
 
@@ -72,8 +70,8 @@ public class Game
         po.setExits("west", nilo);
 
         misisipi.setExits("northwest", danubio);
-
-        currentRoom = amazonas;  // start game outside
+        
+        return amazonas;
     }
 
     /**
@@ -105,7 +103,7 @@ public class Game
         System.out.println("Type 'help' if you need help.");
         System.out.println();
         System.out.println();
-        printLocationInfo();
+        player.printLocationInfo();
     }
 
     /**
@@ -127,19 +125,19 @@ public class Game
             printHelp();
         }
         else if (commandWord.equals("go")) {
-            goRoom(command);
+            player.goRoom(command);
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
         else if (commandWord.equals("look")) {
-            look();
+            player.look();
         }
         else if (commandWord.equals("eat")) {
-            eat();
+            player.eat();
         }
         else if(commandWord.equals("back")){
-            backRoom(command);
+            player.backRoom(command);
         }
 
         return wantToQuit;
@@ -161,32 +159,6 @@ public class Game
         parser.showCommands();
     }
 
-    /** 
-     * Try to go in one direction. If there is an exit, enter
-     * the new room, otherwise print an error message.
-     */
-    private void goRoom(Command command) 
-    {
-        if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            System.out.println("Go where?");
-            return;
-        }
-
-        String direction = command.getSecondWord();
-
-        // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
-
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
-        }
-        else {
-            anteriorRoom.push(currentRoom);
-            currentRoom = nextRoom;
-            printLocationInfo();
-        }
-    }
 
     /** 
      * "Quit" was entered. Check the rest of the command to see
@@ -204,52 +176,4 @@ public class Game
         }
     }
 
-    /**
-     * Imprime la informacion de la localizacion del usuario
-     * 
-     */
-    private void printLocationInfo()
-    {
-        System.out.println(currentRoom.getLongDescription());
-        System.out.println();
-    }
-
-    /**
-     * Muestra la descripcion en la habitacion en la que estamos.
-     */
-    private void look() 
-    {
-        System.out.println(currentRoom.getLongDescription());
-    }
-
-    /**
-     * Este comando lo que hace es imprimirnos un mensaje.
-     */
-    private void eat()
-    {
-        System.out.println("You have eaten now and you are not hungry any more");
-    }
-
-    /**
-     * Este metodo nos hace volver a la habitacion anterior
-     * @param recibe un commando por parametro
-     * @return no devuelve nada imprime la habitacion anterior
-     * 
-     */
-    private void backRoom(Command command)
-    {
-        if(command.hasSecondWord()){
-            System.out.println("Quit what?");
-        }
-        else{
-            if(anteriorRoom.isEmpty()){
-                System.out.println("Lo siento tienes que moverte para volver atras");
-            }
-
-            else{currentRoom = anteriorRoom.pop();
-                printLocationInfo();
-                System.out.println();
-            }          
-        }
-    }
 }
